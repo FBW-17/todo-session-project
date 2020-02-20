@@ -12,20 +12,21 @@ In our app multiple users should be able to maintain their todos, without seing 
         * ToDo Fields: title, description, status
     * Create a reference between User & ToDo model
         * each todo document should have a reference to the user that owns this todo
-    * Sedd in some initial data to your database
+    * Seed in some initial data to your database
         * Seed in two users into the users collection
         * Seed three todos for each user
 
 * Create a POST route /login
-    * Generate a user session on login
-    * Store the user information in req.session.user
-    * Send back to the user if the login was successful in this format:
+	* Receive email and password and check if a user with that email and password exists in MongoDB
+    * If user was found: Generate a user session
+    	* You do that by storing the found user in req.session.user
+    * Send as response if the login was successful in this format:
         * { success: true } for success and { success: false } for failure
 
 * Create a GET /todo route
-    * Fetch the logged-in user-id from req.session.user
+    * Fetch the ID of the logged-in user from req.session.user
     * Fetch all todos for this user from MongoDB
-    * Return back the todos of this user to the client
+    * Return the todos of this user to the client
     
 * React Frontend:
     * Setup a ToDo UI with React
@@ -41,7 +42,7 @@ In our app multiple users should be able to maintain their todos, without seing 
     * Test the login for two different users
         * Check if for each user its specific todos are shown and not the todos of the other user
 
-* Bonus Task - Provide adding and deleting
+* Bonus Task - Provide adding and deleting of todos
     * Backend: Provide routes for creating and deleting ToDos
         * Creating route: app.post("/todo", ....)
         * Deleting route: app.delete("/todo", ... ) 
