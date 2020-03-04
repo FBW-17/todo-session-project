@@ -103,10 +103,6 @@ api.patch("/todo/:id", checkUser, (req, res, next) => {
     let { id } = req.params
     console.log("[Todo PATCH] Data received: ", id, req.body)
 
-    if(!id) {
-        throw new Error("No ToDo id provided...")
-    }
-
     ToDo.findByIdAndUpdate(id, req.body, { new: true})
     .then(todoUpdated => {
         console.log(todoUpdated)
