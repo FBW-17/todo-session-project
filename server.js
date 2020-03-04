@@ -12,11 +12,9 @@ api.listen(port, () => console.log(port))
 // start session for user (or pick existing one from db)
 // session() function will check for session-id cookie in request automatically!
 // default storage: memory
-// let sessionDurationInSeconds = 10 * 60 // = 10 minutes
 const sessionConfig = {
     store: new MongoStore({ mongooseConnection }),
     secret: "Rob",
-    // cookie: { maxAge: sessionDurationInSeconds * 1000 },
     resave: false,
     saveUninitialized: false, // just save session if ANY data was set on it 
         // (=meaning: if the req.sessions object was modified)
@@ -63,6 +61,12 @@ api.post("/login", (req, res) => {
     })
 })
 
+
+// MIDDLEWARE for authroziation
+// this middleware checks if you have a session running
+// (=meaning: you are logged in)
+// we can now attach this middleware to every route that
+// should only be accessible by logged-in users
 const checkUser = (req, res, next) => {
     if(!req.session.user) {
         let err = new Error("Not authorized")
